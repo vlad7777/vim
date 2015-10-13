@@ -3,6 +3,7 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+execute pathogen#infect()
 call vundle#begin()
 " " alternatively, pass a path where Vundle should install plugins
 " "call vundle#begin('~/some/path/here')
@@ -198,6 +199,22 @@ set undofile
 set undodir=$HOME/.vim/undo
 set undolevels=1000
 set undoreload=10000
+"Gundo trigger
+nnoremap <leader>u :GundoToggle<CR>
+
+" highlighting current line
+set cursorline
+
+" folds
+set foldenable
+set foldlevelstart=10
+set foldnestmax=10
+nnoremap <space> za
+set foldmethod=indent
+
+" reload and open vimrc
+nnoremap <leader>rrc :source $MYVIMRC<CR>
+nnoremap <leader>orc :vsp $MYVIMRC<CR>
 
 " compiling files
 autocmd FileType cpp nnoremap <F9> :w<CR> :!clear<CR>:!rm "%:p:r" -f && g++ -std=c++11 -DDEBUG -o "%:p:r" "%:p"<CR>
@@ -206,4 +223,6 @@ autocmd FileType cs nnoremap <F9> :w<CR>:!mcs "%:p:r".cs<CR>
 autocmd FileType cs nnoremap <F8> :!mono "%:p:r".exe<CR>
 autocmd FileType c nnoremap <F9> :w<CR>:!gcc "%:p:r".c -Wall -pedantic -std=c99 -o "%:p:r"<CR>
 autocmd FileType java nnoremap <F9> :w<CR> :!clear<CR>:!rm "%:p:r".class -f && javac "%:p"<CR>
-autocmd FileType java nnoremap <F8> :!echo "%:p:r"<CR>:!java "%:p:r"<CR>
+autocmd FileType ocaml nnoremap <F9> :w<CR>:!ocamlc -o "%:p:r" "%:p:r".ml<CR>
+autocmd FileType ocaml nnoremap <F8> :!"%:p:r"<CR>
+autocmd FileType ocaml nnoremap <F7> :w<CR>:!ocaml < "%:p"<CR>:sh<CR> 
